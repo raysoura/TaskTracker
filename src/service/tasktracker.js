@@ -2,15 +2,17 @@ const dbExecutor = require('../database/dbExecutor')
 
 async function createTask(req, res)  {
     const task = req.body;
-    console.log("Task is: ", task);
-    const val = dbExecutor.getTask();
-    res.send(`DB result is : ${JSON.stringify(val)}`);
+    const val = dbExecutor.createTask(req);
+    res.send(`Create Task result is : ${JSON.stringify(val)}`);
 }
 
 async function getTask(req, res)  {
-    const val = dbExecutor.getTask();
-    console.log("Val: ", val);
-    res.send(`DB result is : ${JSON.stringify(val)}`);
+    try {
+        const val = await dbExecutor.getTask();
+        res.send({status: "success", data : val, msg : "Successfully fetched tasks."});
+    } catch (error) {
+        res.send({status: "error", msg: `Fetched error while getting task. ${error}`})
+    }
 }
 
 module.exports = {createTask, getTask};
