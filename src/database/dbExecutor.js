@@ -12,9 +12,9 @@ async function getTaskById(id) {
     return sqlResult;
 }
 
-async function updateTaskById(id) {
-    var sqlStatement = "update * from task where id = ?";
-    const sqlValues = [id];
+async function updateTaskById(id, req) {
+    const sqlStatement = `UPDATE task SET (title, description, status, priority) VALUES (?, ?, ?, ?) where id = ?;`;
+   const sqlValues = [req.body.title, req.body.description, req.body.status, req.body.priority, id ];
     var sqlResult = await mysql.query(sqlStatement, sqlValues);
     return sqlResult;
 }
@@ -32,7 +32,6 @@ async function createTask(req) {
    const sqlValues = [req.body.title, req.body.description, req.body.status, req.body.priority ];
 
    const result = await mysql.query(sqlStatement, sqlValues)
-   console.log("Result: ", result);
     return result;
 }
 
