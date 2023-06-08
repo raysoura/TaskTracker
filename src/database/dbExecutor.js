@@ -1,8 +1,29 @@
 const mysql = require('./db').getConnection();
 
-async function getTask(req) {
+async function getAllTask(req) {
     var [result] = await mysql.query("select * from task");
     return result;
+}
+
+async function getTaskById(id) {
+    var sqlStatement = "select * from task where id = ?";
+    const sqlValues = [id];
+    var sqlResult = await mysql.query(sqlStatement, sqlValues);
+    return sqlResult;
+}
+
+async function updateTaskById(id) {
+    var sqlStatement = "update * from task where id = ?";
+    const sqlValues = [id];
+    var sqlResult = await mysql.query(sqlStatement, sqlValues);
+    return sqlResult;
+}
+
+async function deleteTaskById(id) {
+    var sqlStatement = "delete from task where id = ?";
+    const sqlValues = [id];
+    var sqlResult = await mysql.query(sqlStatement, sqlValues);
+    return sqlResult;
 }
 
 async function createTask(req) {
@@ -16,6 +37,9 @@ async function createTask(req) {
 }
 
 module.exports = {
-    getTask,
-    createTask
+    getAllTask,
+    createTask,
+    getTaskById,
+    updateTaskById,
+    deleteTaskById
 }
