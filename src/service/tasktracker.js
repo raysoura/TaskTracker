@@ -3,7 +3,7 @@ const dbExecutor = require('../database/dbExecutor')
 async function createTask(req, res)  {
     try {
         const val = await dbExecutor.createTask(req);
-        res.send({status: "success", data : val, msg : "Successfully created task."});
+        res.send({status: "success", data : req.body, msg : "Successfully created task."});
     } catch (error) {
         res.send({status: "error", msg: `Fetched error while creating tasks. ${error}`})
     }
@@ -32,8 +32,9 @@ async function updateTaskById(req, res)  {
     try {
         const id = req.params.id;
         const val = await dbExecutor.updateTaskById(id, req);
-        res.send({status: "success", data : val, msg : "Successfully fetched tasks."});
+        res.send({status: "success", data : req.body, msg : "Successfully fetched tasks."});
     } catch (error) {
+        console.log("Error: ", error);
         res.send({status: "error", msg: `Fetched error while updating task. ${error}`})
     }
 }

@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router();
-const {createTask, getAllTask, getTaskById} = require('../service/tasktracker')
+const {createTask, getAllTask, getTaskById, updateTaskById} = require('../service/tasktracker')
 
 router.post('/createTask' , (req, res) => {
     createTask(req, res);
